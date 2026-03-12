@@ -1,0 +1,115 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nHow can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -32,
+        -48
+      ],
+      "id": "4b92091f-3535-454d-82f1-fa39712e300e",
+      "name": "When chat message received",
+      "webhookId": "140e9c6a-c8ae-48d6-a773-57e68b242b97"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu adalah chatbot AI yang ramah dan membantu pengguna memahami teknologi informasi dan pemrograman dasar. Tugas kamu adalah menjawab pertanyaan tentang algoritma, bahasa pemrograman, database, dan konsep teknologi lainnya dengan penjelasan yang jelas dan mudah dipahami oleh pemula. Jawaban harus singkat, maksimal sekitar 200 kata, dan harus sesuai dengan pertanyaan pengguna. Jika kamu tidak mengetahui jawabannya, jangan mengarang dan katakan dengan jujur bahwa kamu tidak memiliki informasi tersebut. Gunakan bahasa Indonesia yang sederhana, informatif, dan ramah, serta boleh menggunakan emoji secukupnya. Contoh: jika pengguna bertanya “Apa itu algoritma?” jelaskan bahwa algoritma adalah langkah-langkah logis untuk menyelesaikan suatu masalah dalam pemrograman."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        176,
+        -48
+      ],
+      "id": "ab4e08fa-84ad-41f2-851b-09949a0938e6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        48,
+        160
+      ],
+      "id": "6c81b72e-2deb-4758-af3b-fbc72d02d84e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nf2Cp8gavbsrUAvt",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        160
+      ],
+      "id": "4b06a979-ba59-4f02-8901-193486ff5d06",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "adabdbcb-4eb2-4947-9615-742d0d06ca30",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9b8b89b219e870c31f57dd1f1a9bfc591a8ced0dac9312f790dffe5ab9ef4055"
+  },
+  "id": "0VN8OUK2JcK5r1mq",
+  "tags": []
+}
